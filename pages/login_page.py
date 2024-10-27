@@ -1,9 +1,16 @@
-from locators.locator_1 import Locators
-from pages.base_page import BasePage
+from .base_page import BasePage
+import time
+from .locators import *
 
 
 class LoginPage(BasePage):
-    locators = Locators()
+    locators = LoginLocators
 
-    def fill_login(self):
+    def wait_until_login_is_visible(self):
+        self.element_is_visible(self.locators.LOGIN)
+
+    def fill_login_and_password(self):
         self.send_keys(self.locators.LOGIN,"Admin_doc")
+
+    def fill_password(self):
+        self.send_keys(self.locators.PASSWORD,"Pass123$")
