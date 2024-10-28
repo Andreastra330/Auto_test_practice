@@ -6,4 +6,5 @@ class LoginLocators:
     """Страница авторизации"""
     LOGIN = (By.CSS_SELECTOR, "input[id=text-field-Username]")
     PASSWORD = (By.CSS_SELECTOR, "input[id=password-field-Password]")
-    BUTTON_LOGIN = (By.CSS_SELECTOR, "button[text()=Войти]")
+    BUTTON_ENTER = (By.XPATH, "//button[text()='Войти']")
+    BUTTON_RAZDEL = (By.CSS_SELECTOR, '[data-testid="section"]')

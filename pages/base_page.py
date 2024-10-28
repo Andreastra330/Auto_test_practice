@@ -34,3 +34,6 @@ class BasePage:
 
     def send_keys(self, locator, keys):
         return self.driver.find_element(*locator).send_keys(keys)
+
+    def click_element(self,locator):
+        return self.driver.find_element(*locator).click()
