@@ -22,5 +22,6 @@ class LoginLocators:
     FAIL = (By.XPATH, "//div[@class='uppy-Dashboard-AddFiles']")
     ENTER_FILE = (By.CSS_SELECTOR, "input[type='file']")
     SHABLON_BO = (By.XPATH, "//*[@id='search-select-field-boTemplateGuid']")
+    NEED_SHABLON_BO = (By.XPATH, "//*[text() = 'Карточка закупки (kartochkazakupki)']")
 
 

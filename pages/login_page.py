@@ -57,5 +57,8 @@ class LoginPage(BasePage):
         self.put_file(self.locators.ENTER_FILE,"C:/Zayvki/FD.docx")
     def scroll_to_fail(self):
         self.go_to_element(self.locators.FAIL)
-
+    def fill_shablon_bo(self):
+        self.send_keys(self.locators.SHABLON_BO,"Карточка закупки")
+    def click_need_element_in_shablon_bo(self):
+        self.click_element(self.locators.NEED_SHABLON_BO)
 

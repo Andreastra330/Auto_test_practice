@@ -32,4 +32,6 @@ def test_8_method(driver):
     login_page.fill_data_okonchania()
     login_page.scroll_to_fail()
     login_page.put_my_file()
+    login_page.fill_shablon_bo()
+    login_page.click_need_element_in_shablon_bo()
     time.sleep(10)
