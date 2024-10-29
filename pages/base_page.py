@@ -45,3 +45,5 @@ class BasePage:
 
     def put_file(self,locator,path):
         return self.driver.find_element(*locator).send_keys(path)
+
+

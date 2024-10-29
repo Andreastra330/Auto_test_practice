@@ -35,3 +35,8 @@ def test_8_method(driver):
     login_page.fill_shablon_bo()
     login_page.click_need_element_in_shablon_bo()
     time.sleep(10)
+    login_page.check_button_save_clickable()
+    login_page.click_button_save_in_bo()
+    login_page.check_button_close_clickable()
+    login_page.click_button_close_in_bo()
+    time.sleep(10)

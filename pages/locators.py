@@ -23,5 +23,7 @@ class LoginLocators:
     ENTER_FILE = (By.CSS_SELECTOR, "input[type='file']")
     SHABLON_BO = (By.XPATH, "//*[@id='search-select-field-boTemplateGuid']")
     NEED_SHABLON_BO = (By.XPATH, "//*[text() = 'Карточка закупки (kartochkazakupki)']")
+    BUTTON_SAVE = (By.XPATH, "//*[@id='fab-check']")
+    BUTTON_CLOSE = (By.XPATH, "//*[@id='fab-clear']")
 
 

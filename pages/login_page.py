@@ -61,4 +61,13 @@ class LoginPage(BasePage):
         self.send_keys(self.locators.SHABLON_BO,"Карточка закупки")
     def click_need_element_in_shablon_bo(self):
         self.click_element(self.locators.NEED_SHABLON_BO)
+    def check_button_save_clickable(self):
+        self.element_is_clickable(self.locators.BUTTON_SAVE)
+    def click_button_save_in_bo(self):
+        self.click_element(self.locators.BUTTON_SAVE)
+    def check_button_close_clickable(self):
+        self.element_is_clickable(self.locators.BUTTON_CLOSE)
+    def click_button_close_in_bo(self):
+        self.click_element(self.locators.BUTTON_CLOSE)
+
 
