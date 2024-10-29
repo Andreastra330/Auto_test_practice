@@ -1,5 +1,6 @@
 from selenium.webdriver import Keys
-
+import os
+from datetime import datetime
 from .locators import *
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,6 +9,7 @@ class BasePage:
     def __init__(self, driver,url):
         self.driver = driver
         self.url = url
+        self.screenshot_dir = "F:/Zayavki"
 
     def open(self):
         self.driver.get(self.url)
@@ -46,4 +48,7 @@ class BasePage:
     def put_file(self,locator,path):
         return self.driver.find_element(*locator).send_keys(path)
 
-
+    def take_screenshot(self, step_name):
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
+        self.driver.save_screenshot(screenshot_path)

@@ -54,7 +54,7 @@ class LoginPage(BasePage):
     def fill_data_okonchania(self):
         self.send_keys(self.locators.DATA_OKONCHANIA,"31102024")
     def put_my_file(self):
-        self.put_file(self.locators.ENTER_FILE,"C:/Zayvki/FD.docx")
+        self.put_file(self.locators.ENTER_FILE,"F:/Zayavki/FD.docx")
     def scroll_to_fail(self):
         self.go_to_element(self.locators.FAIL)
     def fill_shablon_bo(self):
