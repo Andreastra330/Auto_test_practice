@@ -1,6 +1,9 @@
 from selenium.webdriver import Keys
 import os
 from datetime import datetime
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+
 from .locators import *
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +16,24 @@ class BasePage:
 
     def open(self):
         self.driver.get(self.url)
+    """Ищем элемент и скроллим к нему"""
+    def find_element(self,locator,timeout=60):
+        element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView()", element)
+        return element
+    """Заполняем инпут"""
+    def fill_input(self,locator,sending_text: str,timeout=60):
+        element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView()", element)
+        self.find_element(locator).send_keys(sending_text)
+
+    def wait_until_file_load(self,name_file,timeout=60):
+        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, f"//*[text() = '{name_file}']")))
+
+    def find_element_with_text(self,text,timeout=60):
+        element= WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, f"//*[text() = '{text}']")))
+        self.driver.execute_script("arguments[0].scrollIntoView()", element)
+        return element
 
     def element_is_visible(self, locator, timeout=60): # Элемент виден
         return wait(self.driver,timeout).until(EC.visibility_of_all_elements_located(locator))
@@ -52,3 +73,4 @@ class BasePage:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
         self.driver.save_screenshot(screenshot_path)
+
