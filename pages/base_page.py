@@ -2,17 +2,23 @@ from selenium.webdriver import Keys
 import os
 from datetime import datetime
 import time
+import re
 from selenium.webdriver.support.wait import WebDriverWait
-
+import sys
 from .locators import *
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
+
 
 class BasePage:
     def __init__(self, driver,url):
         self.driver = driver
         self.url = url
-        self.screenshot_dir = "F:/Zayavki"
+        self.screenshot_dir = "F:/Zayavki/Методика 8"
+
+
+
+
 
     def open(self):
         self.driver.get(self.url)
@@ -70,7 +76,35 @@ class BasePage:
         return self.driver.find_element(*locator).send_keys(path)
 
     def take_screenshot(self, step_name):
+        time.sleep(2)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
         self.driver.save_screenshot(screenshot_path)
 
+    def get_attribute_element(self,locator,attribute="value"):
+        element = self.find_element(locator)
+        value = element.get_attribute(attribute)
+        return value
+
+    def value_true(self,locator,attribute="value"):
+        element = self.find_element(locator)
+        value = element.get_attribute(attribute)
+        if value == "true":
+            return True
+        else:
+            sys.exit("Автотест остановлен.")
+
+    def value_false(self, locator, attribute="value"):
+        element = self.find_element(locator)
+        value = element.get_attribute(attribute)
+        if value == "false":
+            return True
+        else:
+            sys.exit("Автотест остановлен.")
+
+    def not_found(self,locator,text="Не найдено!"):
+        element = self.find_element(locator)
+        if text in element.text:
+            return True
+        else:
+            sys.exit("Автотест остановлен.")
