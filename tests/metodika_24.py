@@ -11,5 +11,6 @@ def test_24_method(driver):
     login_page.razdel_for_admin_zakupa()
     login_page.use_filter()
     login_page.open_context_menu_and_click_vigruzka("TestOrlov")
+    login_page.make_exit()
 
 

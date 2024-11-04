@@ -8,6 +8,13 @@ current_id = None
 class LoginPage(BasePage):
     locators = LoginLocators
 
+    screenshot_dir = "F:/Zayavki/Методика 9"
+
+    def take_screenshot(self, step_name):
+        time.sleep(3)
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
+        self.driver.save_screenshot(screenshot_path)
 
     def extract_current_id(self):
         global current_id
@@ -17,8 +24,11 @@ class LoginPage(BasePage):
 
     def wait_until_reestr_is_loaded(self):
         self.element_is_clickable(MainButtonsLocators.NOMER_ZAKUPKI)
-        self.take_screenshot("Реестр")
 
+
+    def page_is_loaded(self):
+        wait_2 = WebDriverWait(self.driver, 10)
+        wait_2.until(lambda driver: driver.execute_script("return document.readyState == 'complete'"))
     """Логинимся"""
 
     def login(self, login, password):
@@ -48,7 +58,7 @@ class LoginPage(BasePage):
         self.find_element(RazdelLocators.ZAKUPKI).click()
         self.element_is_clickable(RazdelLocators.KARTOCHKA_ZAKUPKI)
         self.find_element(RazdelLocators.KARTOCHKA_ZAKUPKI).click()
-        time.sleep(10)
+
 
     def create_bo(self, naimenovanie, opisanie, data_nachala, data_okonchania, path_file, name_file, reestr):
         self.find_element(MainButtonsLocators.BUTTON_CREATE_IN_REESTR).click()
@@ -62,7 +72,6 @@ class LoginPage(BasePage):
         self.find_element_with_text(f"{reestr}").click()
         self.fill_input(ShablonDokumentaLocators.ENTER_FILE, f"{path_file}")
         self.wait_until_file_load(name_file)
-        self.take_screenshot("Файл загружен")
         self.find_element(MainButtonsLocators.BUTTON_SAVE).click()
         time.sleep(2)
         self.extract_current_id()
@@ -73,8 +82,10 @@ class LoginPage(BasePage):
         self.find_element(MainButtonsLocators.EXIT_BUTTON).click()
 
     def use_filter(self):
+        time.sleep(2)
         self.find_element(FilterButtonsLocators.BUTTON_OPEN_FILTER).click()
-        self.fill_input(FilterButtonsLocators.BUTTON_SELECT_NAME_FIELD,"Уникальный идентификатор")
+        self.find_element(FilterButtonsLocators.INPUT_FILTER).click()
+        self.fill_input(FilterButtonsLocators.INPUT_FILTER,"Уникальный идентификатор")
         self.find_element(FilterButtonsLocators.UID_BUTTON).click()
         self.fill_input(FilterButtonsLocators.BUTTON_VALUE_FIELD, "3685980")
         time.sleep(1)
@@ -86,6 +97,7 @@ class LoginPage(BasePage):
         self.find_element(MainButtonsLocators.VIGRUZKA_BUTTON_IN_CONTEX_MENU).click()
         self.fill_input(MainButtonsLocators.INPUT_SHABLON_DOKUMENTA,f"{naimenovanie}")
         self.not_found(MainButtonsLocators.NOT_FOUND)
-        #self.find_element(MainButtonsLocators.PROFILE_BUTTON).click()
+        self.find_element(ShablonDokumentaLocators.FOR_CLICK).click()
 
-
+    def label(self):
+        return self.driver.find_element(By.XPATH, "//label[@for='field-0']")

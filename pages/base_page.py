@@ -75,11 +75,6 @@ class BasePage:
     def put_file(self,locator,path):
         return self.driver.find_element(*locator).send_keys(path)
 
-    def take_screenshot(self, step_name):
-        time.sleep(2)
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
-        self.driver.save_screenshot(screenshot_path)
 
     def get_attribute_element(self,locator,attribute="value"):
         element = self.find_element(locator)

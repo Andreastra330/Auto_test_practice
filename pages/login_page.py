@@ -5,7 +5,12 @@ current_id = None
 
 class LoginPage(BasePage):
     locators = LoginLocators
-
+    screenshot_dir = "F:/Zayavki/Методика 8"
+    def take_screenshot(self, step_name):
+        time.sleep(3)
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        screenshot_path = os.path.join(self.screenshot_dir, f"{step_name}_{timestamp}.png")
+        self.driver.save_screenshot(screenshot_path)
 
     def extract_current_id(self):
         global current_id
@@ -15,7 +20,7 @@ class LoginPage(BasePage):
 
     def wait_until_reestr_is_loaded(self):
         self.find_element(MainButtonsLocators.REESTR)
-        self.take_screenshot("Реестр")
+
 
     """Логинимся"""
     def login(self,login,password):
@@ -35,27 +40,30 @@ class LoginPage(BasePage):
         self.element_is_clickable(RazdelLocators.DOC_REESTR)
         self.find_element(RazdelLocators.DOC_REESTR).click()
         self.wait_until_reestr_is_loaded()
+        self.take_screenshot("3")
 
     def create_bo(self,naimenovanie,opisanie,data_nachala,data_okonchania,path_file,name_file,reestr):
         self.find_element(MainButtonsLocators.BUTTON_CREATE_IN_REESTR).click()
+        self.take_screenshot("4")
         self.fill_input(ShablonDokumentaLocators.NAIMENOVANIE,f"{naimenovanie}")
-        self.take_screenshot("Создание шаблона документа")
         self.fill_input(ShablonDokumentaLocators.OPISANIE,f"{opisanie}")
         self.send_key_arrow_up(ShablonDokumentaLocators.DATA_NACHALA)
         self.fill_input(ShablonDokumentaLocators.DATA_NACHALA,f"{data_nachala}")
         self.send_key_arrow_up(ShablonDokumentaLocators.DATA_OKONCHANIA)
         self.fill_input(ShablonDokumentaLocators.DATA_OKONCHANIA,f"{data_okonchania}")
-        self.take_screenshot("Заполнение БО")
+        self.find_element(ShablonDokumentaLocators.NAIMENOVANIE)
+        self.take_screenshot("5")
         self.fill_input(ShablonDokumentaLocators.ENTER_FILE,f"{path_file}")
         self.fill_input(ShablonDokumentaLocators.SHABLON_BO,f"{reestr}")
         self.find_element_with_text(f"{reestr}").click()
         self.wait_until_file_load(name_file)
-        self.take_screenshot("Файл загружен")
+        self.take_screenshot("7")
         self.find_element(MainButtonsLocators.BUTTON_SAVE).click()
-        time.sleep(2)
+        self.take_screenshot("8")
         self.extract_current_id()
         self.find_element(MainButtonsLocators.BUTTON_CLOSE).click()
         self.wait_until_reestr_is_loaded()
+        self.take_screenshot("9")
 
     def use_filter(self):
         self.find_element(FilterButtonsLocators.BUTTON_OPEN_FILTER).click()
@@ -67,19 +75,27 @@ class LoginPage(BasePage):
         self.wait_until_reestr_is_loaded()
 
     def open_context_menu_and_click_edit(self):
+        time.sleep(5)
         self.find_element(MainButtonsLocators.CONTEX_MENU_BUTTON).click()
         self.find_element(MainButtonsLocators.EDIT_BUTTON_IN_CONTEX_MENU).click()
         self.find_element(ShablonDokumentaLocators.NAIMENOVANIE)
-        self.take_screenshot("EDIT")
+        self.take_screenshot("10")
 
     def delete_file_and_load(self,path_file,name_file):
         self.find_element(ShablonDokumentaLocators.DELETE_FILE_BUTTON).click()
+        self.find_element(ShablonDokumentaLocators.SHABLON_BO)
+        self.take_screenshot("11")
         self.find_element(ShablonDokumentaLocators.ADD_FILE_WINDOW)
         self.fill_input(ShablonDokumentaLocators.ENTER_FILE,f"{path_file}")
         self.wait_until_file_load(name_file)
-        self.take_screenshot("Новый файл")
+        time.sleep(5)
+        self.take_screenshot("12")
         self.find_element(MainButtonsLocators.BUTTON_SAVE).click()
-        time.sleep(2)
+        self.take_screenshot("13")
         self.extract_current_id()
         self.find_element(MainButtonsLocators.BUTTON_CLOSE).click()
         self.wait_until_reestr_is_loaded()
+        self.find_element(FilterButtonsLocators.DELETE_FILTER).click()
+        self.take_screenshot("14")
+
+

@@ -46,7 +46,7 @@ class ShablonDokumentaLocators:
     DELETE_FILE_BUTTON = (By.CSS_SELECTOR, "div[data-testid='delete-file']")
     ADD_FILE_WINDOW = (By.CSS_SELECTOR, "div[class='uppy-Dashboard-AddFiles']")
     ACTUALNOST = (By.XPATH, '//span[@data-testid="checkbox"]')
-
+    FOR_CLICK =  (By.XPATH, "//label[@for='field-0']")
 
 class FilterButtonsLocators:
     BUTTON_OPEN_FILTER = (By.XPATH, "//button[@data-testid='add-condition']")
@@ -56,5 +56,5 @@ class FilterButtonsLocators:
     UID_BUTTON = (By.XPATH, "//div[@data-testid='containerScrollBar']//div[@data-testid='menuitem']//div[text()='Уникальный идентификатор']")
     BUTTON_VALUE_FIELD = (By.ID, "text-field-fieldValue")
     BUTTON_APPLY_FILTER = (By.XPATH, "//button[@data-testid='apply-filter']")
-
-
+    INPUT_FILTER = (By.XPATH,"//*[@id='search-select-field-fieldName']")
+    DELETE_FILTER = (By.CSS_SELECTOR, "button[data-testid='clear-filter']")
